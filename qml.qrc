@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>DirectoryView.qml</file>
-        <file>Editor.qml</file>
         <file>TabEditor.qml</file>
     </qresource>
 </RCC>
