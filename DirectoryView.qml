@@ -3,17 +3,16 @@ import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls 2.14
 import QtLocation 5.14
-
 Rectangle {
-    color: "#222831"
-    border.color: "#eeeeee"
-
-
     TreeView {
+        style: TreeViewStyle {backgroundColor: "#393e46" }
         model: fileSystemModel
         id : tree
+
         alternatingRowColors: true
         anchors.fill: parent
+        verticalScrollBarPolicy: Qt.ScrollBarAlwaysOff
+        horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
 
         // anchors.margins: 20
         TableViewColumn{title: "File System"; role:"fileName" ;width: parent.width ;}
@@ -40,8 +39,7 @@ Rectangle {
                 width: 25
                 height: 25
                 visible: (styleData.hasChildren)
-                x: -width-4
-                y: 6
+                x: -width
             }
 
         }
@@ -63,9 +61,4 @@ Rectangle {
             }
         }
     }
-
-
-
-
-
 }

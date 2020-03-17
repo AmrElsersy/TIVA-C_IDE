@@ -4,7 +4,9 @@ import QtQuick.Controls.Styles 1.4
 
 Tab {
     id:tab
+
     TextArea {
+        id:textArea
         anchors.fill: parent
         style: TextAreaStyle {
             backgroundColor: "#222831"
@@ -14,5 +16,9 @@ Tab {
             font: { font.family = "Helvetica"; font.pointSize = 13;}
         }
 //        textMargin: 30
+        function TextContent(content)
+        {
+            textArea.text  = content
+        }
     }
 }

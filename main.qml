@@ -31,6 +31,16 @@ ApplicationWindow {
                 icon.source: "icons/open.png"
                 onClicked: console.log("ray2");
             }
+            Button{
+                icon.source: "icons/open.png"
+                icon.width: 40; icon.height: 40
+            }
+//            Image {
+//                source: "icons/open.png"
+//                width: 30
+//                height: 30
+//            }
+
             ToolButton {
                 id : save
                 width:300;height: parent.height
