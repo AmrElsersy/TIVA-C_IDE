@@ -7,9 +7,10 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <iostream>
-
 #include <QDirModel>
-
+#include <QStandardItemModel>
+#include <QPushButton>
+#include <QFileIconProvider>
 using namespace std;
 
 class Controller : public QObject
@@ -17,7 +18,7 @@ class Controller : public QObject
     Q_OBJECT
 private:
     QQmlApplicationEngine* engine;
-    QFileSystemModel* fileSystem;
+    QFileSystemModel* FileSystem;
 
     void initFileSystem();
     void RegisterQML();

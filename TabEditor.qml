@@ -4,16 +4,21 @@ import QtQuick.Controls 1.4
 
 
 TabView {
-    anchors.fill: parent
-    Tab {
-        title: "ray2"
-        Rectangle { color:"red" ; anchors.fill: parent;}
-
+    // may be will be benifit      {currentIndex, currentItem ,count}
+    id: tabView
+    MouseArea
+    {
+        anchors.fill: parent
+        onClicked: {
+            tabView.newTab("222");
+        }
     }
-    Tab {
-        title: "directory"
-        DirectoryView {}
+
+    Component.onCompleted: tabView.newTab("ray2","");
+
+    function newTab(titleTab,textContent)
+    {
+        var componentEditor = Qt.createComponent("Editor.qml");
+        var ray2 = componentEditor.createObject(tabView, {title:titleTab , text:textContent});
     }
-
-
 }

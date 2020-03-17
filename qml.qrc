@@ -3,5 +3,15 @@
         <file>main.qml</file>
         <file>DirectoryView.qml</file>
         <file>TabEditor.qml</file>
+        <file>Editor.qml</file>
+        <file>icons/debug.png</file>
+        <file>icons/execute.png</file>
+        <file>icons/help.png</file>
+        <file>icons/memory.png</file>
+        <file>icons/open.png</file>
+        <file>icons/save.png</file>
+        <file>icons/folder1.png</file>
+        <file>icons/folder2.png</file>
+        <file>icons/folder3.png</file>
     </qresource>
 </RCC>

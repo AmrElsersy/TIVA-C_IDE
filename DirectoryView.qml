@@ -1,29 +1,32 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
-import QtQuick.Controls.Styles 1.3
-import QtQuick.Controls.Styles 1.1
+import QtQuick.Controls 2.14
+import QtLocation 5.14
 
 Rectangle {
-    anchors.fill: parent
     color: "#222831"
     border.color: "#eeeeee"
+
 
     TreeView {
         model: fileSystemModel
         id : tree
         alternatingRowColors: true
         anchors.fill: parent
-        anchors.margins: 20
 
+        // anchors.margins: 20
+        TableViewColumn{title: "File System"; role:"fileName" ;width: parent.width ;}
+        headerVisible: false
         property string selectColor: "#b55400"
         property string lightGreyColor: "#eeeeee"
         property string darkGreyColor: "#222831"
         property string middleGreyColor: "#393e46"
-        TableViewColumn{title: "File System";role: "fileName";width: parent.width ;}
         // colors
         rowDelegate: Rectangle {
             color: (styleData.selected) ? tree.selectColor : ( styleData.row % 2 == 0 ) ? tree.middleGreyColor : tree.darkGreyColor
+            height: 50
+
         }
         itemDelegate: Rectangle {
             id :item
@@ -32,6 +35,15 @@ Rectangle {
                 text: styleData.value
                 color: (styleData.selected) ? "white" : tree.lightGreyColor
             }
+            Image {
+                source: "icons/folder3.png"
+                width: 25
+                height: 25
+                visible: (styleData.hasChildren)
+                x: -width-4
+                y: 6
+            }
+
         }
 
         onDoubleClicked:{ Controller.fileSelected(currentIndex); tree.expand(tree.currentIndex); tree.addTab();
