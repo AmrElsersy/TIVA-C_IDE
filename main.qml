@@ -77,6 +77,7 @@ ApplicationWindow {
             Layout.preferredWidth: parent.width/4
         }
         TabEditor{
+            id : tabWidget
             Layout.row: 0
             Layout.column: 1
             Layout.fillHeight: true
@@ -86,4 +87,8 @@ ApplicationWindow {
         }
     }
 
+    Connections {
+        target: dirView
+        function onAddTab(titleTab,textContent) {console.log("signalllllllll");  tabWidget.newTab(titleTab,textContent);}
+    }
 }
