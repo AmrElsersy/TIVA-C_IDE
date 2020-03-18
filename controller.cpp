@@ -28,6 +28,9 @@ Controller::Controller(QQmlApplicationEngine* Engine,QObject* parent) : QObject(
     this->initFileSystem();
     this->initExtentions();
     this->RegisterQML();
+
+
+    emit addTab("ray2","int main {cout << ray2}");
 }
 
 bool Controller::fileSelected(QModelIndex index)

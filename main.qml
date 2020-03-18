@@ -12,83 +12,55 @@ ApplicationWindow {
     height: 1000
     title: qsTr("Hello World")
 
-    header:
-        ToolBar {
-        anchors.top: parent.top
-        width: parent.width
-        height: 60
-        background: Rectangle {
-            color: "#222831"
-        }
-
-        RowLayout {
-            id : rowLayout
-            anchors.fill: parent
-            ToolButton {
-                id : open
-                width:300;height: parent.height
-                icon.width: 50; icon.height: parent.height;icon.color: "white"
-                icon.source: "icons/open.png"
-                onClicked: console.log("ray2");
-            }
-            Button{
-                icon.source: "icons/open.png"
-                icon.width: 40; icon.height: 40
-            }
-//            Image {
-//                source: "icons/open.png"
-//                width: 30
-//                height: 30
-//            }
-
-            ToolButton {
-                id : save
-                width:300;height: parent.height
-                icon.width: 50; icon.height: parent.height;icon.color: "white"
-                icon.source: "icons/save.png"
-                onClicked: console.log("ray2");
-                anchors.left: open.right
-            }
-            ToolButton {
-                id : burn
-                width:300;height: parent.height
-                icon.width: 50; icon.height: parent.height;icon.color: "white"
-                icon.source: "icons/memory.png"
-                onClicked: console.log("ray2");
-                anchors.left: save.right
-            }
-
-        }
-    }
-
-
     GridLayout {
         anchors.top: header.bottom
         anchors.fill: parent
         id: grid
-        rows:1
-        columns:2
+        rows:2
+        columns:4
         rowSpacing: 0; columnSpacing: 0;
-        DirectoryView {
-            id : dirView
+
+
+        TIVA_ToolBar{
+            id:toolBar
+
             Layout.row: 0
             Layout.column: 0
-            Layout.fillHeight: true
-            Layout.preferredWidth: parent.width/4
+            Layout.rowSpan: 1
+            Layout.columnSpan: 4
+            Layout.preferredWidth: parent.width
+            Layout.preferredHeight: 100
         }
+
+        DirectoryView {
+            id : dirView
+
+            Layout.row: 1
+            Layout.column: 0
+            Layout.fillHeight: true
+            Layout.columnSpan:  1
+            Layout.preferredWidth: 300
+        }
+
         TabEditor{
             id : tabWidget
-            Layout.row: 0
-            Layout.column: 1
-            Layout.fillHeight: true
-            anchors.left: dirView.right
-            Layout.preferredWidth: 3*parent.width/4
 
+            Layout.row: 1
+            Layout.column: 1
+            Layout.columnSpan: 3
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+
+//            Layout.preferredWidth:  parent.height *3/4
         }
     }
 
     Connections {
         target: dirView
-        function onAddTab(titleTab,textContent) {console.log("signalllllllll");  tabWidget.newTab(titleTab,textContent);}
+        function onAddTab(titleTab,textContent) {tabWidget.newTab(titleTab,textContent);}
+    }
+    Connections {
+        target: Controller
+        function onAddTab(titleTab,textContent) {tabWidget.newTab(titleTab,textContent);}
     }
 }

@@ -12,5 +12,6 @@
         <file>icons/save.png</file>
         <file>icons/folder1.png</file>
         <file>icons/folder3.png</file>
+        <file>TIVA_ToolBar.qml</file>
     </qresource>
 </RCC>

@@ -39,7 +39,7 @@ public:
     Q_INVOKABLE void setRootPathFileSystemPath(QString path);
     Q_INVOKABLE bool writeFile(QString path , QString content);
 signals:
-
+    void addTab(QString titleTab, QString textContent );
 };
 
 #endif // CONTROLLER_H

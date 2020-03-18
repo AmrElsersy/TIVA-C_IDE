@@ -65,12 +65,9 @@ TabView {
         }
     }
 
-//    Component.onCompleted: {tabView.newTab("ray20","asdasd");tabView.newTab("ray21","int main\n{}");tabView.newTab("rr","int main\n{}");tabView.newTab("ray22","int main\n{}");}
-
     function newTab(titleTab,textContent)
     {
         var componentEditor = Qt.createComponent("Editor.qml");
         var ray2 = componentEditor.createObject(tabView, {title:titleTab, textAreaContent:textContent});
-        console.log("raaa");
     }
 }
