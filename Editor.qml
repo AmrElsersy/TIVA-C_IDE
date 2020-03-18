@@ -20,6 +20,7 @@ Tab {
             font: { font.family = "Helvetica"; font.pointSize = 13;}
 
         }
+        onTextChanged: {textAreaContent = textArea.text;}
 
     }
 }

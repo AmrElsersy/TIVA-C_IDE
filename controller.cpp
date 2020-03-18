@@ -3,7 +3,7 @@
 void Controller::initFileSystem()
 {
     this->FileSystem = new QFileSystemModel;
-    this->FileSystem->setRootPath("/home/amrelsersy");
+    this->FileSystem->setRootPath("/home/amrelsersy/charts");
 }
 
 void Controller::RegisterQML()
@@ -46,21 +46,29 @@ void Controller::setRootPathFileSystemPath(QString path)
     this->FileSystem->setRootPath(path);
 }
 
-bool Controller::writeFile(QString path, QString content)
+bool Controller::saveFile(QString path, QString content)
 {
     if (!this->setFilePath(path))
     {
         cout << "not supported extention" << endl;
         return false;
     }
+    this->file.close();
+    string Path = path.toStdString();
+    // delete the "file://" comming from the FileDialog from QML
+    Path.erase(0,7);
+    path = QString::fromStdString(Path);
 
-    if(!this->file.open(QIODevice::ReadOnly | QIODevice ::Text))    {
-        cout << "error open file path[" << path.toStdString() << "]" << endl;
+    this->file.open(QIODevice::WriteOnly);
+    if(!this->file.isOpen())
+    {
+        cout << "error write file path[" << path.toStdString() << "]" << endl;
         return false;
     }
 
     QTextStream out( & this->file);
     out << content;
+    this->file.close();
     return true;
 }
 
@@ -72,9 +80,10 @@ bool Controller:: readFile(QString path)
         cout << "not supported extention" << endl;
         return false;
     }
-
+    this->file.close();
+    cout << path.toStdString() << endl;
     if(!this->file.open(QIODevice::ReadOnly | QIODevice ::Text))    {
-        cout << "error open file path[" << path.toStdString() << "]" << endl;
+        cout << "error read file path[" << path.toStdString() << "]" << endl;
         return false;
     }
 
@@ -83,6 +92,7 @@ bool Controller:: readFile(QString path)
 
 //    cout << textString.toStdString() << endl;
     this->textFileContent = textString;
+    this->file.close();
     return true;
 
 }

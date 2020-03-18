@@ -5,12 +5,19 @@ import QtQuick.Layouts 1.3
 import QtQuick.Window 2.3
 import QtQuick.Controls 2.14
 import QtQuick.Controls.Styles 1.4
+import QtQuick.Dialogs 1.3
 
 ApplicationWindow {
     visible: true
     width: 1280
     height: 900
     title: qsTr("Hello World")
+
+    FileDialog {
+        id:dialog
+        selectFolder: false;    selectMultiple: false;
+        nameFilters: [ "files (*.txt *.cpp *.c *.h)" ]
+    }
 
     GridLayout {
         anchors.top: header.bottom
@@ -21,7 +28,7 @@ ApplicationWindow {
         rowSpacing: 0; columnSpacing: 0;
 
 
-        TIVA_ToolBar{
+        TivaToolBar{
             id:toolBar
 
             Layout.row: 0
@@ -50,8 +57,6 @@ ApplicationWindow {
             Layout.columnSpan: 3
             Layout.fillHeight: true
             Layout.fillWidth: true
-
-//            Layout.preferredWidth:  parent.height *3/4
         }
     }
 
@@ -63,4 +68,14 @@ ApplicationWindow {
         target: Controller
         function onAddTab(titleTab,textContent) {tabWidget.newTab(titleTab,textContent);}
     }
+    Connections {
+        target: toolBar
+        onSaveFile: {dialog.open();}
+    }
+    Connections {
+        target: dialog
+        onAccepted : {Controller.saveFile(dialog.fileUrl,tabWidget.currentText);}
+//        onAccepted :{ console.log("currentText",tabWidget.currentText); }
+    }
+
 }

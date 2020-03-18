@@ -10,6 +10,7 @@ TabView {
     property string darkGreyColor: "#222831"
     property string middleGreyColor: "#393e46"
     property var openedTabs: []
+    property string currentText: ""
 
     style: TabViewStyle{
         tabsMovable: true
@@ -65,6 +66,8 @@ TabView {
         }
     }
 
+
+    onCurrentIndexChanged: {tabView.currentText = tabView.getTab(currentIndex).textAreaContent;}
     function newTab(titleTab,textContent)
     {
         var componentEditor = Qt.createComponent("Editor.qml");

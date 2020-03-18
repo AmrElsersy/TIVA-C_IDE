@@ -37,7 +37,7 @@ public:
     Q_INVOKABLE QString getFileName();
     Q_INVOKABLE bool fileSelected(QModelIndex index);
     Q_INVOKABLE void setRootPathFileSystemPath(QString path);
-    Q_INVOKABLE bool writeFile(QString path , QString content);
+    Q_INVOKABLE bool saveFile(QString path , QString content);
 signals:
     void addTab(QString titleTab, QString textContent );
 };

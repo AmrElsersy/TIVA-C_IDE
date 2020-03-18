@@ -9,6 +9,7 @@ Rectangle {
     property int iconHeight: 50
     property int iconWidth: 50
     property int  iconMargin: 10
+    signal saveFile()
 
     RowLayout {
         id : rowLayout
@@ -23,13 +24,13 @@ Rectangle {
             id : save
             imageSource : "icons/save.png"
             anchors.left: burn.right
-            onClick: {console.log("Saved !")}
+            onClick: {console.log("Saved !") ; saveFile();}
         }
         TivaButton{
             id : debug
             imageSource : "icons/debug.png"
             anchors.left: save.right
-            onClick: {console.log("Debug mode")}
+            onClick: {console.log("Debug mode") }
 
         }
 

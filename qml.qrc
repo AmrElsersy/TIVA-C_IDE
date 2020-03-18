@@ -4,7 +4,7 @@
         <file>DirectoryView.qml</file>
         <file>TabEditor.qml</file>
         <file>Editor.qml</file>
-        <file>TIVA_ToolBar.qml</file>
+        <file>TivaToolBar.qml</file>
         <file>TivaButton.qml</file>
         <file>icons/debug.png</file>
         <file>icons/save.png</file>
