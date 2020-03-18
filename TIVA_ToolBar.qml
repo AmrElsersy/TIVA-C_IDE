@@ -4,46 +4,59 @@ import QtQuick.Window 2.3
 import QtQuick.Controls 2.14
 import QtQuick.Controls.Styles 1.4
 
-Rectangle{
-    ToolBar {
-        id:toolBar
+Rectangle {
+    color: "#222831"
+    property int iconHeight: 50
+    property int iconWidth: 50
+    property int  iconMargin: 10
+
+    RowLayout {
+        id : rowLayout
         anchors.fill: parent
-        background: Rectangle {
+        anchors.margins: iconMargin
+        TivaButton{
+            id : burn
+            imageSource : "icons/tiva1.png"
+            onClick: {console.log("Burn on CPU !")}
+        }
+        TivaButton{
+            id : save
+            imageSource : "icons/save.png"
+            anchors.left: burn.right
+            onClick: {console.log("Saved !")}
+        }
+        TivaButton{
+            id : debug
+            imageSource : "icons/debug.png"
+            anchors.left: save.right
+            onClick: {console.log("Debug mode")}
+
+        }
+
+        Rectangle {
+            id : tivaText
             color: "#222831"
+            Layout.preferredWidth:  300
+            Layout.preferredHeight:  parent.height
+            Layout.alignment: Qt.AlignRight
+            Text {
+                id: textTiva
+                text: qsTr("TIVA C  IDE")
+                anchors.centerIn: parent
+
+                color: "#b55400"
+                font.weight: Font.Black
+                font.pointSize: 30
+                MouseArea {
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onEntered: textTiva.color = "#eeeeee";
+                    onExited: textTiva.color = "#b55400";
+
+                }
+            }
         }
 
-        RowLayout {
-            id : rowLayout
-            anchors.fill: parent
-            ToolButton {
-                id : open
-                width:300;height: parent.height
-                icon.width: 50; icon.height: parent.height;icon.color: "white"
-                icon.source: "icons/open.png"
-                onClicked: console.log("ray2");
-            }
-            ToolButton{
-                icon.source: "icons/open.png"
-                icon.width: 40; icon.height: 40
-                width: icon.width; height: icon.height
-            }
 
-            ToolButton {
-                id : save
-                width:300;height: parent.height
-                icon.width: 50; icon.height: parent.height;icon.color: "white"
-                icon.source: "icons/save.png"
-                onClicked: console.log("ray2");
-                anchors.left: open.right
-            }
-            ToolButton {
-                id : burn
-                width:300;height: parent.height
-                icon.width: 50; icon.height: parent.height;icon.color: "white"
-                icon.source: "icons/memory.png"
-                onClicked: console.log("ray2");
-                anchors.left: save.right
-            }
-        }
     }
 }

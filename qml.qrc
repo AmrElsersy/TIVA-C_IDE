@@ -4,14 +4,12 @@
         <file>DirectoryView.qml</file>
         <file>TabEditor.qml</file>
         <file>Editor.qml</file>
+        <file>TIVA_ToolBar.qml</file>
+        <file>TivaButton.qml</file>
         <file>icons/debug.png</file>
-        <file>icons/execute.png</file>
-        <file>icons/help.png</file>
-        <file>icons/memory.png</file>
-        <file>icons/open.png</file>
         <file>icons/save.png</file>
         <file>icons/folder1.png</file>
         <file>icons/folder3.png</file>
-        <file>TIVA_ToolBar.qml</file>
+        <file>icons/tiva1.png</file>
     </qresource>
 </RCC>

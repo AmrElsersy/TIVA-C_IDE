@@ -8,8 +8,8 @@ import QtQuick.Controls.Styles 1.4
 
 ApplicationWindow {
     visible: true
-    width: 1300
-    height: 1000
+    width: 1280
+    height: 900
     title: qsTr("Hello World")
 
     GridLayout {
@@ -29,7 +29,7 @@ ApplicationWindow {
             Layout.rowSpan: 1
             Layout.columnSpan: 4
             Layout.preferredWidth: parent.width
-            Layout.preferredHeight: 100
+            Layout.preferredHeight: 70
         }
 
         DirectoryView {
