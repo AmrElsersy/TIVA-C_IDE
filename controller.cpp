@@ -40,24 +40,16 @@ Controller::Controller(QQmlApplicationEngine* Engine,QObject* parent) : QObject(
     this->tivaC["GPIO_A0"] = "Output";
     this->tivaC["GPIO_A1"] = "Output";
     this->tivaC["GPIO_A2"] = "Output";
-    this->tivaC["GPIO_A3"] = "Output";
-    this->tivaC["GPIO_A4"] = "Output";
-    this->tivaC["GPIO_A5"] = "Output";
-    this->tivaC["GPIO_A6"] = "Output";
-    this->tivaC["GPIO_A7"] = "Output";
 
-    this->tivaC["GPIO_B5"] = "Output";
+    this->tivaC["GPIO_C4"] = "UART_RX";
+    this->tivaC["GPIO_C5"] = "Input";
     this->tivaC["GPIO_C6"] = "Output";
-    this->tivaC["GPIO_C7"] = "Output";
 
-    this->tivaC["GPIO_F0"] = "Output";
-    this->tivaC["GPIO_F1"] = "Output";
-    this->tivaC["GPIO_F2"] = "Output";
-    this->tivaC["GPIO_F3"] = "Input";
-    this->tivaC["GPIO_F4"] = "Output";
-    this->tivaC["GPIO_F5"] = "Output";
-    this->tivaC["GPIO_F6"] = "Output";
-    this->tivaC["GPIO_F7"] = "Output";
+    this->tivaC["UART_BaudRate"] = "1599";
+    this->tivaC["UART_FIFO"] = "FIFO_DISABLE";
+    this->tivaC["UART_HighSpeed"] = "HIGH_SPEED_ENABLE";
+    this->tivaC["UART_ParityEnable"] = "PARITY_ENABLE";
+    this->tivaC["UART_StopBits"] = "UART_STOPBITS_1";
 
 
     for(int i =0 ; i < this->generatorsAdapter.size();i++) {

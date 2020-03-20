@@ -39,6 +39,9 @@ GPIO_Generator::GPIO_Generator()
 
 void GPIO_Generator::generatePin(string port , int pinNum, string state)
 {
+    if(state != "Output" && state != "Input")
+        return;
+
     this->generatedCode.code.push_back("// ********* GPIO Initialization " + port + to_string(pinNum) + "  ***********");
     string pinHandler = "_port" + port + "pin" + to_string(pinNum);
     string init = "GPIO_HandlingPin " + pinHandler + ";" ;                      this->generatedCode.code.push_back(init);
@@ -53,6 +56,9 @@ void GPIO_Generator::generatePin(string port , int pinNum, string state)
 
 void GPIO_Generator::generatePort(string port,string state)
 {
+    if(state != "Output" && state != "Input")
+        return;
+
     this->generatedCode.code.push_back("// ********* GPIO Initialization Port " + port + " *********" );
     string portHandler = "_port" + port ;
     string init = "GPIO_HandlingPort " + portHandler + ";" ;                     this->generatedCode.code.push_back(init);
@@ -98,10 +104,13 @@ bool GPIO_Generator::checkPort(string port, map<string, string> ports)
 
 void GPIO_Generator::checkFoundPort(map<string, string> ports)
 {
+    // loop over all ports
     for(auto j = this->foundPorts.begin(); j!= this->foundPorts.end(); j++)
     {
+        // for each port loop over all tiva c data
         for(auto i = ports.begin(); i!= ports.end(); i++)
         {
+            // if you find the GPIO_[PORT_NAME] then set the foundPorts boolean and return , it is exist !
             if(i->first.find("GPIO_"+j->first) != string::npos)
             {
                 this->foundPorts[j->first] = true;

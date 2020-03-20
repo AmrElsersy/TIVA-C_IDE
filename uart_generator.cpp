@@ -11,11 +11,12 @@ UART_Generator::UART_Generator()
 
     this->RX = "GPIO_C4";
     this->TX = "GPIO_C5";
+    this->initDefaultValues();
 }
 
 GeneratedCode UART_Generator::generate(map<string, string> tivaC_Data)
 {
-    if(tivaC_Data[this->RX] != "UART4_RX" || tivaC_Data[this->TX] != "UART_TX")
+    if(tivaC_Data[this->RX] != "UART_RX" || tivaC_Data[this->TX] != "UART_TX")
     {
         cout << "UART is not Enabled ! :[RX:" << tivaC_Data[this->RX] << ",TX:" << tivaC_Data[this->TX] <<"]" << endl;
         return this->clearGeneratedCode();
@@ -24,16 +25,9 @@ GeneratedCode UART_Generator::generate(map<string, string> tivaC_Data)
     // if there is any element dosn't exist , set it to the default value
     for(auto i =this->defaultValues.begin(); i!= this->defaultValues.end() ; i++)
     {
-        try {
-            // we don't care about the string ... if it is exists it will not throw the exception
-            string _ = tivaC_Data[i->first];
-        }
-        // catch all exceptions ... this is a way of checking if the element exists in the map or not
-        catch (...)
-        {
-            // fill the unfounded tiva c Data with the default value
+        // if the key (uart option) dosn't exist in the map ... set the default value
+        if(! tivaC_Data.count(i->first))
             tivaC_Data[i->first] = i->second;
-        }
     }
 
 
