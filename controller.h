@@ -12,7 +12,11 @@
 #include <QIODevice>
 #include <QByteArray>
 #include <QTextStream>
-
+#include "abstractgenerator.h"
+#include "gpio_generator.h"
+#include "generatedcode.h"
+#include "adapterpattern.h"
+#include "uart_generator.h"
 using namespace std;
 
 class Controller : public QObject
@@ -30,6 +34,14 @@ private:
     void initExtentions();
     bool readFile(QString);
     bool setFilePath(QString path);
+
+    vector<AdapterPattern*> generatorsAdapter;
+    map<string,string> tivaC;
+    void initGenerators();
+    void initTiva();
+    void printTiva();
+    void generate(map<string,string>);
+
 
 public:
     Controller(QQmlApplicationEngine* Engine,QObject* parent=nullptr);

@@ -11,7 +11,7 @@ ApplicationWindow {
     visible: true
     width: 1280
     height: 900
-    title: qsTr("Hello World")
+    title: qsTr("TIVA C  IDE")
 
     FileDialog {
         id:dialog
@@ -49,7 +49,7 @@ ApplicationWindow {
             Layout.preferredWidth: 300
         }
 
-        TabEditor{
+        TabEditor {
             id : tabWidget
 
             Layout.row: 1
@@ -74,8 +74,7 @@ ApplicationWindow {
     }
     Connections {
         target: dialog
-        onAccepted : {Controller.saveFile(dialog.fileUrl,tabWidget.currentText);}
-//        onAccepted :{ console.log("currentText",tabWidget.currentText); }
+        onAccepted : {Controller.saveFile(dialog.fileUrl,tabWidget.getCurrentText()); console.log("saved::::",tabWidget.getCurrentText()) ;}
     }
 
 }

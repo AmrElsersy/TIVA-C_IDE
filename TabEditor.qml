@@ -67,7 +67,12 @@ TabView {
     }
 
 
-    onCurrentIndexChanged: {tabView.currentText = tabView.getTab(currentIndex).textAreaContent;}
+//    onCurrentIndexChanged: {tabView.currentText = tabView.getTab(currentIndex).textAreaContent;}
+    function getCurrentText()
+    {
+        return tabView.getTab(currentIndex).textAreaContent;
+    }
+
     function newTab(titleTab,textContent)
     {
         var componentEditor = Qt.createComponent("Editor.qml");

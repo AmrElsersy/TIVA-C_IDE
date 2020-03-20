@@ -1,4 +1,11 @@
 #include "controller.h"
+void Controller::initGenerators()
+{
+    // add any new generator in the same way
+    this->generatorsAdapter.push_back(new AdapterPattern(new GPIO_Generator));
+    this->generatorsAdapter.push_back(new AdapterPattern(new UART_Generator));
+}
+
 
 void Controller::initFileSystem()
 {
@@ -28,7 +35,37 @@ Controller::Controller(QQmlApplicationEngine* Engine,QObject* parent) : QObject(
     this->initFileSystem();
     this->initExtentions();
     this->RegisterQML();
+    this->initGenerators();
+//    this->initTiva();
+    this->tivaC["GPIO_A0"] = "Output";
+    this->tivaC["GPIO_A1"] = "Output";
+    this->tivaC["GPIO_A2"] = "Output";
+    this->tivaC["GPIO_A3"] = "Output";
+    this->tivaC["GPIO_A4"] = "Output";
+    this->tivaC["GPIO_A5"] = "Output";
+    this->tivaC["GPIO_A6"] = "Output";
+    this->tivaC["GPIO_A7"] = "Output";
 
+    this->tivaC["GPIO_B5"] = "Output";
+    this->tivaC["GPIO_C6"] = "Output";
+    this->tivaC["GPIO_C7"] = "Output";
+
+    this->tivaC["GPIO_F0"] = "Output";
+    this->tivaC["GPIO_F1"] = "Output";
+    this->tivaC["GPIO_F2"] = "Output";
+    this->tivaC["GPIO_F3"] = "Input";
+    this->tivaC["GPIO_F4"] = "Output";
+    this->tivaC["GPIO_F5"] = "Output";
+    this->tivaC["GPIO_F6"] = "Output";
+    this->tivaC["GPIO_F7"] = "Output";
+
+
+    for(int i =0 ; i < this->generatorsAdapter.size();i++) {
+        GeneratedCode y =  this->generatorsAdapter[i]->generateCode(this->tivaC);
+        cout << "include" << y.includes << ", c:" << y.dot_c_Path << ", h:" << y.dot_h_Path << ", function:" << y.FunctionName << endl;
+        for (int j = 0; j < y.code.size(); ++j)
+            cout <<y.code[j] << endl;
+    }
 
     emit addTab("ray2","int main {cout << ray2}");
 }
@@ -48,26 +85,32 @@ void Controller::setRootPathFileSystemPath(QString path)
 
 bool Controller::saveFile(QString path, QString content)
 {
-    if (!this->setFilePath(path))
-    {
-        cout << "not supported extention" << endl;
-        return false;
-    }
     this->file.close();
     string Path = path.toStdString();
     // delete the "file://" comming from the FileDialog from QML
     Path.erase(0,7);
     path = QString::fromStdString(Path);
 
-    this->file.open(QIODevice::WriteOnly);
+    if (!this->setFilePath(path))
+    {
+        cout << "not supported extention" << endl;
+        return false;
+    }
+    this->file.open(QIODevice::WriteOnly | QIODevice::Text);
     if(!this->file.isOpen())
     {
         cout << "error write file path[" << path.toStdString() << "]" << endl;
         return false;
     }
 
-    QTextStream out( & this->file);
-    out << content;
+
+    this->file.write(content.toLocal8Bit());
+    //    QTextStream out( & this->file);
+    //    out << content;
+
+
+    cout << "content:" << content.toStdString() << endl;
+
     this->file.close();
     return true;
 }
@@ -90,7 +133,7 @@ bool Controller:: readFile(QString path)
     QByteArray textByteArray = this->file.readAll();
     QString textString = QString ::fromStdString(textByteArray.toStdString() ) ;
 
-//    cout << textString.toStdString() << endl;
+    //    cout << textString.toStdString() << endl;
     this->textFileContent = textString;
     this->file.close();
     return true;
@@ -114,9 +157,10 @@ bool Controller::setFilePath(QString  path)
         return false;
 
     this->file.setFileName(path);
-//    cout << "supported extention!" << endl;
+    //    cout << "supported extention!" << endl;
     return true;
 }
+
 
 QString Controller::getFileContent()
 {
@@ -135,4 +179,18 @@ QString Controller::getFileName()
     string fileName = path.substr(pos);
     fileName.erase(0,1);
     return QString::fromStdString(fileName);
+}
+
+void Controller::initTiva()
+{
+    string arr[6] = {"A","B","C","D","E"};
+    for(int j =0 ; j< 5; j++)
+        for(int i = 0 ; i<8; i ++)
+        this->tivaC["GPIO_"+arr[j] + to_string(i)] = (i%2 == 0) ? "Output" : "Input";
+    cout << "ray2";
+}
+
+void Controller::printTiva()
+{
+
 }

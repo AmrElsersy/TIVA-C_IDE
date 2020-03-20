@@ -5,7 +5,7 @@ import QtQuick.Controls.Styles 1.4
 Tab {
     id:tab
     // to make the textArea Follows it
-    property string textAreaContent: "ss"
+    property string textAreaContent: textArea.text
 
     TextArea {
         id:textArea
@@ -20,7 +20,7 @@ Tab {
             font: { font.family = "Helvetica"; font.pointSize = 13;}
 
         }
-        onTextChanged: {textAreaContent = textArea.text;}
-
+        onTextChanged: {textAreaContent = textArea.text;  console.log(textAreaContent);}
+        onFocusChanged:  {textAreaContent = textArea.text; console.log(textAreaContent);}
     }
 }
