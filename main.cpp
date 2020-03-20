@@ -23,9 +23,5 @@ int main(int argc, char *argv[])
     Controller* controller = new Controller(&engine);
 
 
-
-
-
-
     return app.exec();
 }

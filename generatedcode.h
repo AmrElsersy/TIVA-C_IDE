@@ -11,6 +11,7 @@ public:
     string dot_h_Path ;
     string dot_c_Path ;
     string FunctionName;
+    string configCode;
     GeneratedCode();
 };
 

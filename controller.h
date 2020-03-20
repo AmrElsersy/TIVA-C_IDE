@@ -17,6 +17,7 @@
 #include "generatedcode.h"
 #include "adapterpattern.h"
 #include "uart_generator.h"
+
 using namespace std;
 
 class Controller : public QObject
@@ -36,11 +37,14 @@ private:
     bool setFilePath(QString path);
 
     vector<AdapterPattern*> generatorsAdapter;
+    vector<GeneratedCode> generatorsCodes;
+    QString mainFile;
     map<string,string> tivaC;
     void initGenerators();
     void initTiva();
     void printTiva();
     void generate(map<string,string>);
+    void generateMainFunction();
 
 
 public:

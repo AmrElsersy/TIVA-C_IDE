@@ -2,7 +2,7 @@
 #define PORTS 6
 // GPIO_A1 : Output
 // GPIO_B2 : Input
-GPIO_Generator::GPIO_Generator()
+GPIO_Generator::GPIO_Generator() : AbstractGenerator()
 {
     this->name = "GPIO";
     // map to check that we need using port generation instead of pin generation
@@ -29,12 +29,11 @@ GPIO_Generator::GPIO_Generator()
     this->BasePort["E"] = "GPIO_PORTE_APB_BASE";
     this->BasePort["F"] = "GPIO_PORTF_APB_BASE";
 
-    this->generatedCode.FunctionName = "void init_GPIO();";
+    this->generatedCode.FunctionName = "init_GPIO()";
     this->generatedCode.includes = "#include \"gpio.h\" " ;
     this->generatedCode.dot_h_Path += "gpio.h";
     this->generatedCode.dot_c_Path += "gpio.c";
 
-    this->generatedCode.code.push_back(this->generatedCode.FunctionName + " { ");
 }
 
 void GPIO_Generator::generatePin(string port , int pinNum, string state)
@@ -152,5 +151,7 @@ GeneratedCode GPIO_Generator::generate(map<string, string> tivaC_Data)
             continue;
         this->generatePin(port,stoi(pin),i->second);
     }
+    this->generatedCode.code.push_back("}");
+    this->collectConfigCode();
     return this->generatedCode;
 }

@@ -36,14 +36,20 @@ Controller::Controller(QQmlApplicationEngine* Engine,QObject* parent) : QObject(
     this->initExtentions();
     this->RegisterQML();
     this->initGenerators();
-//    this->initTiva();
+
     this->tivaC["GPIO_A0"] = "Output";
     this->tivaC["GPIO_A1"] = "Output";
     this->tivaC["GPIO_A2"] = "Output";
+    this->tivaC["GPIO_A3"] = "Output";
+    this->tivaC["GPIO_A4"] = "Output";
+    this->tivaC["GPIO_A5"] = "Output";
+    this->tivaC["GPIO_A6"] = "Output";
+    this->tivaC["GPIO_A7"] = "Output";
 
     this->tivaC["GPIO_C4"] = "UART_RX";
-    this->tivaC["GPIO_C5"] = "Input";
+    this->tivaC["GPIO_C5"] = "UART_TX";
     this->tivaC["GPIO_C6"] = "Output";
+    this->tivaC["GPIO_E5"] = "Input";
 
     this->tivaC["UART_BaudRate"] = "1599";
     this->tivaC["UART_FIFO"] = "FIFO_DISABLE";
@@ -52,12 +58,6 @@ Controller::Controller(QQmlApplicationEngine* Engine,QObject* parent) : QObject(
     this->tivaC["UART_StopBits"] = "UART_STOPBITS_1";
 
 
-    for(int i =0 ; i < this->generatorsAdapter.size();i++) {
-        GeneratedCode y =  this->generatorsAdapter[i]->generateCode(this->tivaC);
-        cout << "include" << y.includes << ", c:" << y.dot_c_Path << ", h:" << y.dot_h_Path << ", function:" << y.FunctionName << endl;
-        for (int j = 0; j < y.code.size(); ++j)
-            cout <<y.code[j] << endl;
-    }
 
     emit addTab("ray2","int main {cout << ray2}");
 }
@@ -175,6 +175,8 @@ QString Controller::getFileName()
 
 void Controller::initTiva()
 {
+    // this function is just for testing purposes ......
+
     string arr[6] = {"A","B","C","D","E"};
     for(int j =0 ; j< 5; j++)
         for(int i = 0 ; i<8; i ++)
@@ -182,7 +184,36 @@ void Controller::initTiva()
     cout << "ray2";
 }
 
-void Controller::printTiva()
+void Controller::generate(map<string, string> tivaC)
 {
+    // generate code
+    for(int i =0 ; i < this->generatorsAdapter.size();i++) {
+        this->generatorsCodes.push_back(this->generatorsAdapter[i]->generateCode(this->tivaC));
+    }
 
+    this->generateMainFunction();
 }
+
+void Controller::generateMainFunction()
+{
+    string includes ;
+    string mainCode ;
+    string configFunctions ;
+
+    mainCode = "int main() { \n";
+
+    for(int i =0 ; i < this->generatorsCodes.size(); i++)
+    {
+        includes += this->generatorsCodes[i].includes + "\n";
+        configFunctions +="void " + this->generatorsCodes[i].FunctionName +" {\n" +  this->generatorsCodes[i].configCode + "\n";
+        mainCode += "    " + this->generatorsCodes[i].FunctionName + ";\n" ;
+    }
+
+    mainCode += "    while(1) {\n    \n    } \n}" ;
+
+    this->mainFile = QString::fromStdString(includes +"\n" + mainCode + configFunctions);
+
+    cout << "************************************************************************************" << endl;
+    cout << this->mainFile.toStdString() << endl;
+}
+

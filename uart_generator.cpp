@@ -1,13 +1,12 @@
 #include "uart_generator.h"
 
-UART_Generator::UART_Generator()
+UART_Generator::UART_Generator() : AbstractGenerator()
 {
     this->name = "UART";
-    this->generatedCode.FunctionName = "void UART_Config();";
+    this->generatedCode.FunctionName = "UART_Config()";
     this->generatedCode.includes = "#include \"uart.h\" " ;
     this->generatedCode.dot_h_Path += "uart.h";
     this->generatedCode.dot_c_Path += "uart.c";
-    this->generatedCode.code.push_back(this->generatedCode.FunctionName + " { ");
 
     this->RX = "GPIO_C4";
     this->TX = "GPIO_C5";
@@ -44,6 +43,9 @@ GeneratedCode UART_Generator::generate(map<string, string> tivaC_Data)
     this->generatedCode.code.push_back(uart +".TransmitEnable = " + tivaC_Data["UART_TransmitEnable"]+ ";");
     this->generatedCode.code.push_back("\n");
 
+    this->generatedCode.code.push_back("}");
+
+    this->collectConfigCode();
     return this->generatedCode;
 }
 

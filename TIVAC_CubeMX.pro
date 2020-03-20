@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         adapterpattern.cpp \
+        abstractgenerator.cpp \
         controller.cpp \
         generatedcode.cpp \
         gpio_generator.cpp \
