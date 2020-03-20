@@ -42,7 +42,6 @@ private:
     map<string,string> tivaC;
     void initGenerators();
     void initTiva();
-    void printTiva();
     void generate(map<string,string>);
     void generateMainFunction();
 

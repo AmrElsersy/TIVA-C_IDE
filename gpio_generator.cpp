@@ -30,9 +30,9 @@ GPIO_Generator::GPIO_Generator() : AbstractGenerator()
     this->BasePort["F"] = "GPIO_PORTF_APB_BASE";
 
     this->generatedCode.FunctionName = "init_GPIO()";
-    this->generatedCode.includes = "#include \"gpio.h\" " ;
-    this->generatedCode.dot_h_Path += "gpio.h";
-    this->generatedCode.dot_c_Path += "gpio.c";
+    this->generatedCode.includes = "#include \"GPIO.h\" " ;
+    this->generatedCode.dot_h_Path += "GPIO.h";
+    this->generatedCode.dot_c_Path += "GPIO.c";
 
 }
 

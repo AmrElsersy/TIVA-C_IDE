@@ -10,7 +10,7 @@ void Controller::initGenerators()
 void Controller::initFileSystem()
 {
     this->FileSystem = new QFileSystemModel;
-    this->FileSystem->setRootPath("/home/amrelsersy/charts");
+    this->FileSystem->setRootPath("/home/amrelsersy/TIVA");
 }
 
 void Controller::RegisterQML()
@@ -212,7 +212,7 @@ void Controller::generateMainFunction()
         driversPath.push_back(this->generatorsCodes[i].dot_h_Path);
     }
 
-    mainCode += "    while(1) {\n    \n    } \n}" ;
+    mainCode += "    while(1) {\n    \n    } \n}\n" ;
 
     this->mainFile = QString::fromStdString(includes +"\n" + mainCode + configFunctions);
 
@@ -226,7 +226,10 @@ void Controller::generateMainFunction()
     {
         bool successRead = this->readFile(QString::fromStdString(driversPath[i]));
         if(successRead)
+        {
+            driversPath[i].erase(0,driversPath[i].find_last_of("/"));
             emit addTab(QString::fromStdString(driversPath[i]),this->textFileContent);
+        }
     }
 }
 
