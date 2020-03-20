@@ -49,6 +49,7 @@ Controller::Controller(QQmlApplicationEngine* Engine,QObject* parent) : QObject(
     this->tivaC["GPIO_C4"] = "UART_RX";
     this->tivaC["GPIO_C5"] = "UART_TX";
     this->tivaC["GPIO_C6"] = "Output";
+    this->tivaC["GPIO_C7"] = "Output";
     this->tivaC["GPIO_E5"] = "Input";
 
     this->tivaC["UART_BaudRate"] = "1599";
