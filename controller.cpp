@@ -58,8 +58,8 @@ Controller::Controller(QQmlApplicationEngine* Engine,QObject* parent) : QObject(
     this->tivaC["UART_StopBits"] = "UART_STOPBITS_1";
 
 
-
-    emit addTab("ray2","int main {cout << ray2}");
+    generate(this->tivaC);
+//    emit addTab("ray2","int main {cout << ray2}");
 }
 
 bool Controller::fileSelected(QModelIndex index)
@@ -199,6 +199,7 @@ void Controller::generateMainFunction()
     string includes ;
     string mainCode ;
     string configFunctions ;
+    vector<string> driversPath;
 
     mainCode = "int main() { \n";
 
@@ -207,6 +208,8 @@ void Controller::generateMainFunction()
         includes += this->generatorsCodes[i].includes + "\n";
         configFunctions +="void " + this->generatorsCodes[i].FunctionName +" {\n" +  this->generatorsCodes[i].configCode + "\n";
         mainCode += "    " + this->generatorsCodes[i].FunctionName + ";\n" ;
+        driversPath.push_back(this->generatorsCodes[i].dot_c_Path);
+        driversPath.push_back(this->generatorsCodes[i].dot_h_Path);
     }
 
     mainCode += "    while(1) {\n    \n    } \n}" ;
@@ -215,5 +218,15 @@ void Controller::generateMainFunction()
 
     cout << "************************************************************************************" << endl;
     cout << this->mainFile.toStdString() << endl;
+
+    emit addTab("main.cpp",this->mainFile);
+
+    // open the drivers files
+    for (int i =0 ; i < driversPath.size(); i++)
+    {
+        bool successRead = this->readFile(QString::fromStdString(driversPath[i]));
+        if(successRead)
+            emit addTab(QString::fromStdString(driversPath[i]),this->textFileContent);
+    }
 }
 

@@ -56,6 +56,7 @@ public:
     Q_INVOKABLE bool saveFile(QString path , QString content);
 signals:
     void addTab(QString titleTab, QString textContent );
+
 };
 
 #endif // CONTROLLER_H
