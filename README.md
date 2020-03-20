@@ -1,4 +1,8 @@
 # TIVA C IDE
+## Introduction
+TIVA C IDE is an Auto-Generated-Code IDE designed for TIVA C Microcontroller to generate drivers through configrations.
+used technologies **Qt,QML,C++**
+
 ## GUI
 
 UI Design is consist of 4 parts:
