@@ -10,7 +10,7 @@ void Controller::initGenerators()
 void Controller::initFileSystem()
 {
     this->FileSystem = new QFileSystemModel;
-    this->FileSystem->setRootPath("/home/amrelsersy/TIVA");
+    this->FileSystem->setRootPath("/home/amrelsersy/TIVAC_CubeMX/Drivers");
 }
 
 void Controller::RegisterQML()

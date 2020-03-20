@@ -19,6 +19,73 @@ ApplicationWindow {
         nameFilters: [ "files (*.txt *.cpp *.c *.h)" ]
     }
 
+    Component.onCompleted: {
+        tabWidget.scale=0; dirView.opacity=0; toolBar.opacity=0;
+        startupAnimation.start();
+        pause.start();
+        dirView.opacity=1; toolBar.scale=1;
+        pause.start();
+        parallel.start();
+        //        ray2.start()
+    }
+
+    Rectangle {
+        id : rectAnimation
+        color: "#393e46";
+        anchors.fill: parent
+        opacity: 1;
+        scale: 1;
+        Text {
+            id: textAnimation
+            text: qsTr("TIVA C % Ray2")
+            anchors.centerIn: parent
+            color: "#eeeeee"
+            font.pixelSize: 60
+            font.bold: true
+            opacity: 0
+        }
+    }
+
+    SequentialAnimation {
+        id:startupAnimation
+        // text animation
+        NumberAnimation {target: textAnimation;property: "opacity";duration: 1500;easing.type: Easing.OutBounce;from:0;to:1;}
+        PauseAnimation {duration: 500}
+        NumberAnimation {target: textAnimation;property: "opacity";duration: 800;easing.type: Easing.InOutQuad;from:1;to:0;}
+
+        PauseAnimation {duration: 500}
+        ParallelAnimation {
+            id:parallel
+            NumberAnimation {
+                id: tab_animation;
+                target: tabWidget;
+                property: "scale";
+                duration: 1200;
+                easing.type: Easing.OutBounce;
+                from : 0 ; to : 1;
+            }
+            NumberAnimation {
+                target: toolBar
+                property: "x"
+                duration: 1000
+                easing.type: Easing.InOutSine
+                from : toolBar.x - toolBar.width ; to : toolBar.x;
+            }
+            NumberAnimation {
+                target: dirView
+                property: "x"
+                duration: 1000
+                easing.type: Easing.InOutSine
+                from : dirView.x-dirView.width; to: dirView.x;
+            }
+
+            NumberAnimation {
+                targets: [dirView,toolBar]
+                properties: "opacity"
+                duration: 1; from :0; to : 1;
+            }
+        }
+    }
     GridLayout {
         anchors.top: header.bottom
         anchors.fill: parent
