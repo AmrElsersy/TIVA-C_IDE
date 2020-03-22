@@ -5,12 +5,6 @@ used technologies **Qt,QML,C++**
 
 ## GUI
 
-UI Design is consist of 4 parts:
-- TIVA C Simulation : to set the configrations of the TIVA C Drivers
-- Directory Viewer  : to access the filesystem and let the user open/modify files
-- Tab Editor        : to create / open new editors for the generated code & drivers
-- Tool Bar          : to control the program
-
 ![tiva](https://user-images.githubusercontent.com/35613645/77140580-b8fb6f80-6a82-11ea-9f31-d8b5b8ef6bdd.png)
 
 ## Design 
